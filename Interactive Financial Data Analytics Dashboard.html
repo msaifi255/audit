@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Financial Data Analytics Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        // Custom Tailwind CSS configuration to match JoPACC brand guidelines
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-dark-blue': '#243746',
+                        'brand-gold': '#FFB600', // Primary Yellow
+                        'brand-dark-gold': '#AE841F', // Darker gold for hover states
+                        'brand-dark-gray': '#6F7271',
+                        'brand-light-gray': '#9EA1A2',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .section {
+            display: none;
+            animation: fadeIn 0.8s;
+        }
+        .section.active {
+            display: block;
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 4px;
+        }
+        .nav-link.active {
+            color: #FFB600; /* brand-gold */
+            border-bottom-color: #FFB600; /* brand-gold */
+            font-weight: 600;
+        }
+        .sub-nav-btn {
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .sub-nav-btn.active {
+            background-color: #FFB600; /* brand-gold */
+            color: #243746; /* brand-dark-blue for better contrast */
+            font-weight: 600;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .content-container {
+            transition: opacity 0.5s ease-in-out;
+            min-height: 400px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-brand-dark-blue">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white/90 backdrop-blur-lg shadow-sm sticky top-0 z-50 border-b border-slate-200">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-brand-dark-blue">
+                <a href="#">Finance<span class="text-brand-gold">Analytics</span></a>
+            </div>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-brand-dark-gray">
+                <a href="#home" class="nav-link active" onclick="showSection('home', this)">Home</a>
+                <a href="#concepts" class="nav-link" onclick="showSection('concepts', this)">Core Concepts</a>
+                <a href="#action" class="nav-link" onclick="showSection('action', this)">Finance in Action</a>
+                <a href="#future" class="nav-link" onclick="showSection('future', this)">Future Outlook</a>
+            </div>
+             <div class="flex items-center space-x-4">
+                <button id="fullscreen-btn" class="p-2 rounded-full hover:bg-slate-100 hidden md:block text-brand-dark-gray hover:text-brand-gold transition-colors">
+                    <svg id="fs-enter-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5v4m0 0h-4"></path></svg>
+                    <svg id="fs-exit-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6m0 0l-4 4M9 21H3v-6m0 0l4-4M3 9V3h6m0 0l4 4m8 8v6h-6m0 0l-4-4"></path></svg>
+                </button>
+                <button class="md:hidden" id="mobile-menu-button">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 border-t border-slate-200">
+            <a href="#home" class="block py-2 nav-link active" onclick="showSection('home', this); toggleMobileMenu();">Home</a>
+            <a href="#concepts" class="block py-2 nav-link" onclick="showSection('concepts', this); toggleMobileMenu();">Core Concepts</a>
+            <a href="#action" class="block py-2 nav-link" onclick="showSection('action', this); toggleMobileMenu();">Finance in Action</a>
+            <a href="#future" class="block py-2 nav-link" onclick="showSection('future', this); toggleMobileMenu();">Future Outlook</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-6 md:p-8">
+
+        <!-- Section 1: Home -->
+        <section id="home" class="section active">
+            <div class="text-center py-16">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-brand-dark-blue leading-tight">
+                    Welcome to <span class="text-brand-gold">Financial Data Analytics</span>
+                </h1>
+                <p class="mt-4 text-lg md:text-xl text-brand-dark-gray max-w-3xl mx-auto">
+                    Explore how data and AI are transforming strategic financial decisions, driving innovation, and shaping the future of the industry.
+                </p>
+                <button onclick="showSection('concepts', document.querySelector(&quot;a[href='#concepts']&quot;))" class="mt-8 px-8 py-4 bg-brand-gold text-brand-dark-blue font-semibold rounded-lg shadow-lg hover:bg-brand-dark-gold hover:text-white transform hover:scale-105 transition-all duration-300">
+                    Start Exploring
+                </button>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 text-center mt-12">
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                    <div class="bg-brand-gold/10 text-brand-gold rounded-full h-16 w-16 mx-auto flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                    </div>
+                    <h3 class="mt-4 text-xl font-bold text-brand-dark-blue">Discover Insights</h3>
+                    <p class="mt-2 text-brand-dark-gray">Uncover hidden patterns and opportunities within your financial data.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                    <div class="bg-brand-gold/10 text-brand-gold rounded-full h-16 w-16 mx-auto flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                    </div>
+                    <h3 class="mt-4 text-xl font-bold text-brand-dark-blue">Drive Decisions</h3>
+                    <p class="mt-2 text-brand-dark-gray">Make smarter, data-backed financial choices with confidence.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                     <div class="bg-brand-gold/10 text-brand-gold rounded-full h-16 w-16 mx-auto flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                    </div>
+                    <h3 class="mt-4 text-xl font-bold text-brand-dark-blue">Innovate Finance</h3>
+                    <p class="mt-2 text-brand-dark-gray">See the future of finance with cutting-edge AI and Fintech solutions.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Core Concepts -->
+        <section id="concepts" class="section">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-brand-dark-blue">Core Concepts of Data Analytics</h2>
+                <p class="mt-2 text-lg text-brand-dark-gray">Building a solid foundation for data-driven finance.</p>
+            </div>
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="w-full md:w-1/4">
+                    <div id="concepts-nav" class="flex flex-col gap-2 bg-white p-4 rounded-lg shadow-md">
+                        <button class="sub-nav-btn w-full text-left p-3 rounded-md active" onclick="showContent('concepts', 'what-is-da', this)">What is DA?</button>
+                        <button class="sub-nav-btn w-full text-left p-3 rounded-md" onclick="showContent('concepts', 'journey', this)">The Data Journey</button>
+                        <button class="sub-nav-btn w-full text-left p-3 rounded-md" onclick="showContent('concepts', 'quality', this)">Data Quality</button>
+                        <button class="sub-nav-btn w-full text-left p-3 rounded-md" onclick="showContent('concepts', 'types', this)">Types of Analytics</button>
+                    </div>
+                </div>
+                <div id="concepts-content-container" class="w-full md:w-3/4 bg-white p-8 rounded-lg shadow-md content-container">
+                    <!-- Dynamic content loads here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Finance in Action -->
+        <section id="action" class="section">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-brand-dark-blue">Finance in Action</h2>
+                <p class="mt-2 text-lg text-brand-dark-gray">Practical applications of data analytics in the financial world.</p>
+            </div>
+             <div class="flex flex-col md:flex-row gap-8">
+                <div class="w-full md:w-1/4">
+                     <div id="action-nav" class="flex flex-col gap-2 bg-white p-4 rounded-lg shadow-md">
+                        <button class="sub-nav-btn w-full text-left p-3 rounded-md active" onclick="showContent('action', 'pillars', this)">Data Pillars</button>
+                        <button class="sub-nav-btn w-full text-left p-3 rounded-md" onclick="showContent('action', 'jopacc', this)">JoPACC Context</button>
+                        <button class="sub-nav-btn w-full text-left p-3 rounded-md" onclick="showContent('action', 'ai', this)">AI in Finance</button>
+                        <button class="sub-nav-btn w-full text-left p-3 rounded-md" onclick="showContent('action', 'fintech', this)">Fintech & Data</button>
+                        <button class="sub-nav-btn w-full text-left p-3 rounded-md" onclick="showContent('action', 'audit', this)">Audit Analytics</button>
+                        <button class="sub-nav-btn w-full text-left p-3 rounded-md" onclick="showContent('action', 'case-study', this)">Audit Case Study</button>
+                    </div>
+                </div>
+                <div id="action-content-container" class="w-full md:w-3/4 bg-white p-8 rounded-lg shadow-md content-container">
+                    <!-- Dynamic content loads here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Future Outlook -->
+        <section id="future" class="section">
+             <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-brand-dark-blue">Future Outlook</h2>
+                <p class="mt-2 text-lg text-brand-dark-gray">Navigating the next wave of financial innovation.</p>
+            </div>
+             <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold mb-4 text-brand-dark-blue">Challenges & Ethics</h3>
+                    <ul class="space-y-4 text-brand-dark-gray">
+                        <li class="flex items-start"><span class="text-rose-500 mr-3 mt-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg></span><span><b>Data Privacy & Security:</b> Adhering to strict regulations (GDPR, etc.) and protecting sensitive data from breaches.</span></li>
+                        <li class="flex items-start"><span class="text-rose-500 mr-3 mt-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2" /></svg></span><span><b>Algorithmic Bias:</b> Ensuring AI models are fair and non-discriminatory to avoid reinforcing existing inequalities.</span></li>
+                        <li class="flex items-start"><span class="text-rose-500 mr-3 mt-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2v2m-4 6h.01M12 12h.01M16 12h.01" /></svg></span><span><b>Explainable AI (XAI):</b> Making "black box" models transparent and understandable to regulators and stakeholders.</span></li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold mb-4 text-brand-dark-blue">Future Trends & Your Growth</h3>
+                    <div id="trends-container">
+                        <p class="text-brand-dark-gray mb-4">The financial landscape is constantly evolving. Click the button below to get an up-to-the-minute analysis of the latest trends powered by Gemini.</p>
+                        <div class="text-center mt-6 border-t pt-6">
+                            <button id="get-trends-btn" onclick="getLatestTrends()" class="px-6 py-3 bg-brand-gold text-brand-dark-blue font-semibold rounded-lg shadow-md hover:bg-brand-dark-gold hover:text-white transform hover:scale-105 transition-all duration-300">
+                                ✨ Get Latest Trends
+                            </button>
+                        </div>
+                        <div id="trends-result" class="mt-6" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white text-center py-8 mt-8 border-t-2 border-slate-200">
+        <p class="text-brand-dark-gray">&copy; 2025 Financial Analytics Dashboard. All Rights Reserved.</p>
+        <p class="text-sm text-brand-light-gray mt-2">A Demonstration of a Modern, Interactive Web Application.</p>
+    </footer>
+
+    <script>
+        // --- Gemini API Integration ---
+        const API_KEY = ""; // In a real app, use a secure way to handle API keys.
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent`;
+
+        // Helper to show loading state
+        function showLoading(elementId, message) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.style.display = 'block';
+                element.innerHTML = `
+                    <div class="flex items-center justify-center p-4">
+                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-brand-gold" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span class="text-brand-dark-gray">${message}...</span>
+                    </div>
+                `;
+            }
+        }
+        
+        // Helper to render markdown-like text to HTML
+        function renderResponse(text) {
+            let html = '';
+            // Sanitize potential HTML in the response to prevent XSS
+            const sanitizedText = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            const lines = sanitizedText.split('\n');
+            let inList = false;
+
+            lines.forEach(line => {
+                // Handle bold text first, as it can be on any line type
+                line = line.replace(/\*\*(.*?)\*\*/g, '<strong class="text-brand-dark-blue">$1</strong>');
+
+                if (line.trim().startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="list-disc list-outside space-y-2 pl-5 my-4">';
+                        inList = true;
+                    }
+                    html += `<li>${line.trim().substring(2)}</li>`;
+                } else {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    if (line.trim().length > 0) {
+                         // Check for headings
+                         if (line.trim().startsWith('### ')) {
+                            html += `<h5 class="font-semibold text-brand-dark-blue mt-4 mb-2">${line.trim().substring(4)}</h5>`;
+                         } else if (line.trim().startsWith('## ')) {
+                            html += `<h4 class="font-bold text-lg mt-4 mb-2 text-brand-dark-blue">${line.trim().substring(3)}</h4>`;
+                         } else {
+                            html += `<p class="mb-2">${line.trim()}</p>`;
+                         }
+                    }
+                }
+            });
+
+            if (inList) {
+                html += '</ul>'; // Close any open list at the end of the text
+            }
+            // Remove leading <br> tags that might result from initial empty lines
+            return html.trim().replace(/^<br>/, '');
+        }
+
+
+        // Main API call function with exponential backoff for retries
+        async function callGeminiAPI(payload, withRetry = true, delay = 1000) {
+            try {
+                // Always include the key parameter for the environment's proxy to work correctly.
+                const finalUrl = `${API_URL}?key=${API_KEY}`;
+                const response = await fetch(finalUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                });
+
+                if (!response.ok) {
+                    if (response.status === 429 && withRetry && delay <= 8000) {
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        return callGeminiAPI(payload, true, delay * 2);
+                    }
+                    throw new Error(`API Error: ${response.status} ${response.statusText}`);
+                }
+
+                return await response.json();
+            } catch (error) {
+                console.error("Failed to call Gemini API:", error);
+                return { error: `Failed to get response from AI. ${error.message}` };
+            }
+        }
+
+        // Feature 1: Analyze Audit Case Study
+        async function analyzeAuditCase() {
+            const button = document.getElementById('analyze-audit-btn');
+            const resultContainer = document.getElementById('audit-analysis-result');
+            if (!button || !resultContainer) return;
+
+            button.disabled = true;
+            showLoading('audit-analysis-result', 'AI is analyzing the case');
+
+            const caseData = `
+                Scenario: An internal auditor is reviewing employee expense claims to identify potential fraud or policy violations.
+                Data:
+                - Date: 2023-11-15, Employee: A. Smith, Amount: $75.50, Category: Meals, Notes: Client Lunch
+                - Date: 2023-11-18, Employee: B. Jones, Amount: $250.00, Category: Entertainment, Notes: Weekend (Policy Violation)
+                - Date: 2023-11-20, Employee: C. Miller, Amount: $1,200.00, Category: Software, Notes: High Value (Requires Approval)
+                - Date: 2023-11-22, Employee: A. Smith, Amount: $45.20, Category: Transport, Notes: Taxi to Airport
+                - Date: 2023-11-28, Employee: D. Chen, Amount: $112.30, Category: Office Supplies, Notes: Duplicate of a previous claim
+            `;
+
+            const systemPrompt = "You are a senior internal auditor with expertise in forensic accounting and data analytics. Your tone is professional, concise, and insightful.";
+            const userQuery = `Analyze the provided expense report data. Provide a summary of your findings, identify the key risks for each flagged item, and recommend specific next steps for the auditor. Format your response with clear headings using markdown.`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery + "\n\n" + caseData }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+            };
+
+            const result = await callGeminiAPI(payload);
+            
+            if (result.error) {
+                 resultContainer.innerHTML = `<p class="text-rose-600">${result.error}</p>`;
+            } else {
+                const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "No analysis available.";
+                resultContainer.innerHTML = `
+                    <h4 class="font-bold text-lg mb-2 text-brand-dark-blue">AI Audit Analysis:</h4>
+                    <div class="text-brand-dark-gray space-y-2 text-left">${renderResponse(text)}</div>
+                `;
+            }
+            button.disabled = false;
+        }
+
+        // Feature 2: Get Latest Financial Trends
+        async function getLatestTrends() {
+            const button = document.getElementById('get-trends-btn');
+            const resultContainer = document.getElementById('trends-result');
+            if (!button || !resultContainer) return;
+
+            button.disabled = true;
+            resultContainer.style.display = 'block';
+            showLoading('trends-result', 'Searching for the latest trends');
+            
+            const systemPrompt = "You are a financial technology analyst specializing in market trends. Provide a concise summary of the most important current trends. Your tone should be informative and forward-looking.";
+            const userQuery = "What are the top 3-4 most impactful current trends in financial data analytics and AI in finance? Provide a brief explanation for each and use markdown for formatting.";
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                tools: [{ "google_search": {} }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+            };
+
+            const result = await callGeminiAPI(payload);
+
+            if (result.error) {
+                resultContainer.innerHTML = `<p class="text-rose-600">${result.error}</p>`;
+            } else {
+                const candidate = result.candidates?.[0];
+                const text = candidate?.content?.parts?.[0]?.text || "No trends found.";
+                
+                let sourcesHtml = '';
+                const groundingMetadata = candidate?.groundingMetadata;
+                if (groundingMetadata && groundingMetadata.groundingAttributions) {
+                    const sources = groundingMetadata.groundingAttributions
+                        .map(attribution => ({ uri: attribution.web?.uri, title: attribution.web?.title }))
+                        .filter(source => source.uri && source.title);
+                        
+                    if (sources.length > 0) {
+                         sourcesHtml = `
+                            <h5 class="font-semibold text-brand-dark-blue mt-4 mb-2">Sources:</h5>
+                            <ul class="list-disc list-inside text-sm space-y-1">
+                                ${sources.map(s => `<li><a href="${s.uri}" target="_blank" class="text-brand-gold hover:underline">${s.title}</a></li>`).join('')}
+                            </ul>
+                         `;
+                    }
+                }
+                
+                resultContainer.innerHTML = `
+                    <div class="text-brand-dark-gray space-y-2 text-left">${renderResponse(text)}</div>
+                    ${sourcesHtml}
+                `;
+            }
+            button.disabled = false;
+        }
+
+
+        // --- Original Dashboard Logic ---
+        const contentData = {
+            concepts: {
+                'what-is-da': {
+                    title: 'What is Data Analytics?',
+                    html: `
+                        <p class="text-brand-dark-gray mb-4">Data Analytics (DA) is the process of inspecting, cleansing, transforming, and modeling data with the goal of discovering useful information, informing conclusions, and supporting decision-making.</p>
+                        <h4 class="font-semibold text-lg mb-2 text-brand-dark-blue">Why It's Critical for Finance:</h4>
+                        <ul class="list-disc list-inside space-y-2 text-brand-dark-gray">
+                            <li><b>Data Explosion:</b> Financial markets generate vast amounts of data every second.</li>
+                            <li><b>Regulatory Demands:</b> Increased need for transparency and accurate reporting.</li>
+                            <li><b>Real-Time Needs:</b> The necessity for instant insights in trading and risk management.</li>
+                            <li><b>Competitive Edge:</b> Data-driven organizations consistently outperform their peers.</li>
+                        </ul>
+                    `
+                },
+                'journey': {
+                    title: 'The Data Analytics Journey',
+                    html: `
+                        <p class="text-brand-dark-gray mb-6">A structured, five-stage process transforms raw data into actionable intelligence.</p>
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-[auto_1fr] items-start gap-x-4">
+                                <div class="font-bold text-brand-gold">1. Collection:</div>
+                                <div class="text-brand-dark-gray">Sourcing relevant data from internal (ERP, CRM) and external (market data) sources.</div>
+                            </div>
+                            <div class="grid grid-cols-[auto_1fr] items-start gap-x-4">
+                                <div class="font-bold text-brand-gold">2. Cleaning:</div>
+                                <div class="text-brand-dark-gray">Preparing raw data by handling errors, missing values, and inconsistencies to ensure accuracy.</div>
+                            </div>
+                            <div class="grid grid-cols-[auto_1fr] items-start gap-x-4">
+                                <div class="font-bold text-brand-gold">3. Analysis:</div>
+                                <div class="text-brand-dark-gray">Applying statistical methods and algorithms to uncover patterns, correlations, and trends.</div>
+                            </div>
+                            <div class="grid grid-cols-[auto_1fr] items-start gap-x-4">
+                                <div class="font-bold text-brand-gold">4. Visualization:</div>
+                                <div class="text-brand-dark-gray">Translating complex findings into clear, intuitive charts, graphs, and dashboards.</div>
+                            </div>
+                            <div class="grid grid-cols-[auto_1fr] items-start gap-x-4">
+                                <div class="font-bold text-brand-gold">5. Action:</div>
+                                <div class="text-brand-dark-gray">Using the derived insights to make informed, strategic business decisions.</div>
+                            </div>
+                        </div>
+                    `
+                },
+                 'quality': {
+                    title: 'The Pillars of Data Quality',
+                    html: `
+                        <p class="text-brand-dark-gray mb-6">The principle of "Garbage In, Garbage Out" is paramount. High-quality decisions depend on high-quality data, built on these six pillars:</p>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-center">
+                            <div class="bg-slate-100 p-4 rounded-lg"><b class="block text-brand-dark-blue">Accuracy</b><span class="text-brand-dark-gray text-sm">Is the data correct?</span></div>
+                            <div class="bg-slate-100 p-4 rounded-lg"><b class="block text-brand-dark-blue">Timeliness</b><span class="text-brand-dark-gray text-sm">Is it available when needed?</span></div>
+                            <div class="bg-slate-100 p-4 rounded-lg"><b class="block text-brand-dark-blue">Consistency</b><span class="text-brand-dark-gray text-sm">Is it uniform across systems?</span></div>
+                            <div class="bg-slate-100 p-4 rounded-lg"><b class="block text-brand-dark-blue">Completeness</b><span class="text-brand-dark-gray text-sm">Are there any gaps?</span></div>
+                            <div class="bg-slate-100 p-4 rounded-lg"><b class="block text-brand-dark-blue">Relevance</b><span class="text-brand-dark-gray text-sm">Is it fit for purpose?</span></div>
+                            <div class="bg-slate-100 p-4 rounded-lg"><b class="block text-brand-dark-blue">Integrity</b><span class="text-brand-dark-gray text-sm">Is it secure and trustworthy?</span></div>
+                        </div>
+                    `
+                },
+                'types': {
+                    title: 'Four Types of Data Analytics',
+                    html: `
+                        <p class="text-brand-dark-gray mb-6">Analytics can be categorized by their complexity and the value they provide, each answering a different fundamental question.</p>
+                        <div class="space-y-4">
+                            <div class="p-4 border-l-4 border-brand-gold bg-brand-gold/10 rounded">
+                                <h5 class="font-bold text-brand-dark-blue">1. Descriptive Analytics (What happened?)</h5>
+                                <p class="text-brand-dark-gray">Summarizes past data. E.g., Quarterly revenue reports, website traffic summaries.</p>
+                            </div>
+                            <div class="p-4 border-l-4 border-brand-gold bg-brand-gold/10 rounded">
+                                <h5 class="font-bold text-brand-dark-blue">2. Diagnostic Analytics (Why did it happen?)</h5>
+                                <p class="text-brand-dark-gray">Investigates the root cause of past events. E.g., Analyzing why a marketing campaign failed.</p>
+                            </div>
+                            <div class="p-4 border-l-4 border-brand-gold bg-brand-gold/10 rounded">
+                                <h5 class="font-bold text-brand-dark-blue">3. Predictive Analytics (What will happen?)</h5>
+                                <p class="text-brand-dark-gray">Forecasts future outcomes using historical data and statistical models. E.g., Credit risk scoring.</p>
+                            </div>
+                            <div class="p-4 border-l-4 border-brand-gold bg-brand-gold/10 rounded">
+                                <h5 class="font-bold text-brand-dark-blue">4. Prescriptive Analytics (What should we do?)</h5>
+                                <p class="text-brand-dark-gray">Recommends actions to optimize for a specific goal. E.g., Portfolio rebalancing suggestions.</p>
+                            </div>
+                        </div>
+                    `
+                }
+            },
+            action: {
+                'pillars': {
+                    title: 'The Data Pillars of Finance',
+                    html: `
+                        <p class="text-brand-dark-gray mb-6">Financial analysis relies on a combination of internal and external data sources to build a complete picture.</p>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2 text-brand-dark-blue">Internal Sources</h4>
+                                <ul class="list-disc list-inside space-y-2 text-brand-dark-gray">
+                                    <li><b>Transactional Data:</b> Sales, purchases, payments.</li>
+                                    <li><b>Customer Data (CRM):</b> Demographics, behavior, history.</li>
+                                    <li><b>ERP & Accounting:</b> General ledger, financial statements.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2 text-brand-dark-blue">External Sources</h4>
+                                <ul class="list-disc list-inside space-y-2 text-brand-dark-gray">
+                                    <li><b>Market Data:</b> Stock prices, interest rates, indices.</li>
+                                    <li><b>Economic Indicators:</b> GDP, inflation, unemployment rates.</li>
+                                    <li><b>Regulatory Data:</b> Filings, compliance information.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    `
+                },
+                'jopacc': {
+                    title: 'JoPACC Context: National Payments System',
+                    html: `
+                        <p class="text-brand-dark-gray mb-6">For an entity like the Jordan Payments and Clearing Company (JoPACC), data analytics is crucial for overseeing the national payment ecosystem.</p>
+                        <ul class="list-disc list-inside space-y-2 text-brand-dark-gray">
+                            <li><b>AI-Powered Fraud Detection:</b> Analyzing transaction patterns in real-time to flag anomalies and prevent fraud across the network.</li>
+                            <li><b>Operational Efficiency:</b> Monitoring system performance, transaction flows, and settlement times to identify and resolve bottlenecks.</li>
+                            <li><b>Market Insights:</b> Aggregating anonymized data to understand payment trends, consumer behavior, and adoption of digital payments.</li>
+                            <li><b>Automated Compliance:</b> Using analytics to ensure all participants adhere to national and international regulatory standards.</li>
+                            <li><b>Predictive Performance:</b> Forecasting transaction volumes to manage system capacity and ensure stability during peak periods.</li>
+                        </ul>
+                    `
+                },
+                 'ai': {
+                    title: 'The Role of AI in Finance',
+                    html: `
+                        <p class="text-brand-dark-gray mb-6">Artificial Intelligence and Machine Learning are not just buzzwords; they are core technologies driving the next generation of financial services.</p>
+                        <ul class="list-disc list-inside space-y-2 text-brand-dark-gray">
+                            <li><b>Automated Data Processing:</b> AI can read, understand, and categorize vast amounts of unstructured data like contracts and news reports.</li>
+                            <li><b>Superior Prediction Models:</b> Machine learning algorithms can identify complex, non-linear patterns that traditional models miss.</li>
+                            <li><b>Personalized Services:</b> AI-driven robo-advisors and personalized banking experiences.</li>
+                            <li><b>Enhanced Security:</b> Advanced anomaly detection for cybersecurity and fraud prevention.</li>
+                        </ul>
+                    `
+                },
+                'fintech': {
+                    title: 'Fintech: Where Data is the Product',
+                    html: `
+                        <p class="text-brand-dark-gray mb-6">Financial Technology (Fintech) companies have disrupted the industry by placing data at the absolute core of their business models.</p>
+                        <ul class="list-disc list-inside space-y-2 text-brand-dark-gray">
+                            <li><b>Digital-First & Data-Rich:</b> Every user interaction generates data, providing a rich source for analysis and product improvement.</li>
+                            <li><b>Hyper-Personalized Services:</b> Using data to offer tailored loans, insurance, and investment products.</li>
+                            <li><b>Agile Product Development:</b> A/B testing and data analysis drive rapid iteration and innovation.</li>
+                            <li><b>Innovative Risk Assessment:</b> Using alternative data sources (e.g., social media, mobile data) to assess creditworthiness.</li>
+                        </ul>
+                    `
+                },
+                'audit': {
+                    title: 'Data Analytics in Auditing',
+                     html: `
+                        <p class="text-brand-dark-gray mb-6">Data analytics has revolutionized auditing, moving from sample-based testing to comprehensive analysis of entire datasets.</p>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2 text-brand-dark-blue">Internal Audit</h4>
+                                <ul class="list-disc list-inside space-y-2 text-brand-dark-gray">
+                                    <li><b>Continuous Monitoring:</b> Automated checks on transactions as they occur.</li>
+                                    <li><b>Compliance Checks:</b> Verifying adherence to internal policies and controls.</li>
+                                    <li><b>Fraud Detection:</b> Identifying unusual patterns and outliers.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2 text-brand-dark-blue">External Audit</h4>
+                                <ul class="list-disc list-inside space-y-2 text-brand-dark-gray">
+                                    <li><b>Full Population Testing:</b> Analyzing 100% of transactions, not just a sample.</li>
+                                    <li><b>AI-Powered Anomaly Detection:</b> Using machine learning to flag high-risk entries.</li>
+                                    <li><b>Increased Efficiency:</b> Automating repetitive tasks to focus on high-judgment areas.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    `
+                },
+                 'case-study': {
+                    title: 'Audit Analytics Case Study: Expense Report Review',
+                    html: `
+                        <p class="text-brand-dark-gray mb-4"><b>Scenario:</b> An internal auditor is using data analytics to review all employee expense claims for the last quarter to identify potential fraud or policy violations.</p>
+                        <p class="text-brand-dark-gray mb-6">Instead of manually checking a small sample, the auditor analyzes the entire dataset, looking for specific red flags.</p>
+                        <div class="overflow-x-auto rounded-lg border border-slate-200">
+                           <table class="w-full text-left text-sm">
+                                <thead class="bg-slate-100 text-brand-dark-blue uppercase tracking-wider">
+                                    <tr>
+                                        <th class="p-3 font-semibold">Date</th>
+                                        <th class="p-3 font-semibold">Employee</th>
+                                        <th class="p-3 font-semibold">Amount</th>
+                                        <th class="p-3 font-semibold">Category</th>
+                                        <th class="p-3 font-semibold">Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white">
+                                    <tr class="border-t border-slate-200"><td class="p-3">2023-11-15</td><td class="p-3">A. Smith</td><td class="p-3">$75.50</td><td class="p-3">Meals</td><td class="p-3">Client Lunch</td></tr>
+                                    <tr class="bg-rose-50 border-t border-rose-200"><td class="p-3">2023-11-18</td><td class="p-3">B. Jones</td><td class="p-3">$250.00</td><td class="p-3">Entertainment</td><td class="p-3 text-rose-600 font-semibold">Weekend (Policy Violation)</td></tr>
+                                    <tr class="bg-amber-50 border-t border-amber-200"><td class="p-3">2023-11-20</td><td class="p-3">C. Miller</td><td class="p-3">$1,200.00</td><td class="p-3">Software</td><td class="p-3 text-amber-600 font-semibold">High Value (Requires Approval)</td></tr>
+                                    <tr class="border-t border-slate-200"><td class="p-3">2023-11-22</td><td class="p-3">A. Smith</td><td class="p-3">$45.20</td><td class="p-3">Transport</td><td class="p-3">Taxi to Airport</td></tr>
+                                    <tr class="bg-violet-50 border-t border-violet-200"><td class="p-3">2023-11-28</td><td class="p-3">D. Chen</td><td class="p-3">$112.30</td><td class="p-3">Office Supplies</td><td class="p-3 text-violet-600 font-semibold">Duplicate of a previous claim</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                         <h4 class="font-semibold text-lg mt-6 mb-2 text-brand-dark-blue">Analytical Insights:</h4>
+                         <ul class="list-disc list-inside space-y-2 text-brand-dark-gray">
+                             <li><b class="text-amber-600">Outlier Detection:</b> C. Miller's claim is significantly higher than average and is flagged for review.</li>
+                             <li><b class="text-rose-600">Policy Violation:</b> B. Jones's weekend claim is automatically flagged as it violates company policy.</li>
+                             <li><b class="text-violet-600">Duplicate Detection:</b> An algorithm identifies D. Chen's claim as a potential duplicate of an earlier submission.</li>
+                         </ul>
+                         <div class="text-center mt-6 border-t pt-6">
+                            <button id="analyze-audit-btn" onclick="analyzeAuditCase()" class="px-6 py-3 bg-brand-gold text-brand-dark-blue font-semibold rounded-lg shadow-md hover:bg-brand-dark-gold hover:text-white transform hover:scale-105 transition-all duration-300">
+                                ✨ Analyze with AI
+                            </button>
+                        </div>
+                        <div id="audit-analysis-result" class="mt-6 p-6 bg-slate-100 rounded-lg" style="display: none;"></div>
+                    `
+                }
+            }
+        };
+
+        // Function to show the main sections
+        function showSection(sectionId, navElement) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            
+            const allNavLinks = document.querySelectorAll('.nav-link');
+            allNavLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Add active class to clicked link in both desktop and mobile nav
+            const desktopLink = document.querySelector(`header .hidden a[href="#${sectionId}"]`);
+            const mobileLink = document.querySelector(`#mobile-menu a[href="#${sectionId}"]`);
+            if(desktopLink) desktopLink.classList.add('active');
+            if(mobileLink) mobileLink.classList.add('active');
+        }
+
+        // Function to show dynamic content within sections
+        function showContent(section, contentId, btnElement) {
+            const container = document.getElementById(`${section}-content-container`);
+            const content = contentData[section][contentId];
+            
+            if (container && content) {
+                container.style.opacity = '0';
+                setTimeout(() => {
+                    container.innerHTML = `
+                        <div class="border-b border-slate-200 pb-4 mb-6">
+                            <h3 class="text-2xl font-bold text-brand-dark-blue">${content.title}</h3>
+                        </div>
+                        <div>${content.html}</div>
+                    `;
+                    container.style.opacity = '1';
+                }, 250);
+            }
+
+            const navContainer = document.getElementById(`${section}-nav`);
+            if(navContainer) {
+                navContainer.querySelectorAll('.sub-nav-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                if(btnElement) {
+                    btnElement.classList.add('active');
+                }
+            }
+        }
+        
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+        }
+        
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+
+        // --- Full Screen Feature ---
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        const fsEnterIcon = document.getElementById('fs-enter-icon');
+        const fsExitIcon = document.getElementById('fs-exit-icon');
+
+        function toggleFullScreen() {
+            const doc = window.document;
+            const docEl = doc.documentElement;
+
+            const requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+            const cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+            const isFullScreen = doc.fullscreenElement || doc.mozFullScreenElement || doc.webkitFullscreenElement || doc.msFullscreenElement;
+
+            if (!isFullScreen) {
+                requestFullScreen.call(docEl).catch(err => {
+                     console.error(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+                });
+            } else {
+                if(cancelFullScreen) {
+                   cancelFullScreen.call(doc);
+                }
+            }
+        }
+
+        function updateFullscreenIcon() {
+            const doc = window.document;
+            const isFullScreen = doc.fullscreenElement || doc.mozFullScreenElement || doc.webkitFullscreenElement || doc.msFullscreenElement;
+
+            if (!isFullScreen) {
+                fsEnterIcon.classList.remove('hidden');
+                fsExitIcon.classList.add('hidden');
+            } else {
+                fsEnterIcon.classList.add('hidden');
+                fsExitIcon.classList.remove('hidden');
+            }
+        }
+
+        fullscreenBtn.addEventListener('click', toggleFullScreen);
+        document.addEventListener('fullscreenchange', updateFullscreenIcon);
+        document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
+        document.addEventListener('mozfullscreenchange', updateFullscreenIcon);
+        document.addEventListener('MSFullscreenChange', updateFullscreenIcon);
+
+
+        // Initial content load
+        window.onload = function() {
+            showContent('concepts', 'what-is-da', document.querySelector('#concepts-nav .sub-nav-btn'));
+            showContent('action', 'pillars', document.querySelector('#action-nav .sub-nav-btn'));
+            showSection('home', document.querySelector('a[href="#home"]'));
+        };
+    </script>
+</body>
+</html>
+
+

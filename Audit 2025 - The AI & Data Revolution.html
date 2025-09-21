@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audit 2025: The AI & Data Revolution</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom styles for the interactive diagram */
+        .process-step {
+            transition: all 0.3s ease-in-out;
+        }
+        .process-step:hover {
+            transform: translateY(-5px);
+        }
+        .process-arrow {
+            flex-grow: 1;
+            height: 2px;
+            background-color: #FFB600; /* JoPACC Yellow */
+            position: relative;
+        }
+        .process-arrow::after {
+            content: '';
+            position: absolute;
+            right: -1px;
+            top: -4px;
+            border-left: 8px solid #FFB600;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+        }
+        /* Animation class */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .loader {
+            border: 4px solid #f3f3f3; /* Light grey */
+            border-top: 4px solid #FFB600; /* Yellow */
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-[#243746]">
+
+    <!-- Header Navigation -->
+    <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 border-b border-gray-200">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-[#243746]">
+                <span class="text-[#FFB600]">Audit</span>2025
+            </div>
+            <div class="flex items-center">
+                <ul class="hidden md:flex space-x-8 text-sm font-medium">
+                    <li><a href="#home" class="nav-link text-[#FFB600] border-b-2 border-[#FFB600] pb-1">Home</a></li>
+                    <li><a href="#concepts" class="nav-link text-gray-600 hover:text-[#FFB600] transition-colors duration-300">Core Concepts</a></li>
+                    <li><a href="#action" class="nav-link text-gray-600 hover:text-[#FFB600] transition-colors duration-300">Audit in Action</a></li>
+                    <li><a href="#future" class="nav-link text-gray-600 hover:text-[#FFB600] transition-colors duration-300">Future Outlook</a></li>
+                </ul>
+                <!-- Fullscreen Button -->
+                <button id="fullscreen-btn" title="Toggle Fullscreen" class="ml-4 p-2 rounded-full text-gray-500 hover:bg-gray-100 hover:text-[#243746] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FFB600] transition-colors">
+                    <svg id="fullscreen-enter-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 1v4m0 0h-4m4 0l-5-5" />
+                    </svg>
+                    <svg id="fullscreen-exit-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                         <path stroke-linecap="round" stroke-linejoin="round" d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12 md:py-20">
+
+        <!-- Section 1: Home -->
+        <section id="home" class="text-center min-h-screen flex flex-col justify-center">
+            <h1 class="text-4xl md:text-6xl font-bold text-[#243746] leading-tight">The AI & Data Revolution</h1>
+            <p class="mt-4 text-lg md:text-xl text-[#FFB600] font-light">Navigating the Future of Audit in 2025 and Beyond</p>
+            <p class="mt-8 max-w-3xl mx-auto text-gray-600">
+                This interactive dashboard explores the transformative impact of artificial intelligence and data analytics on the audit profession. Discover new technologies, understand practical applications, and prepare for the skills of tomorrow.
+            </p>
+            <div class="mt-12 grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Card 1 -->
+                <div class="bg-white p-8 rounded-xl border border-gray-200 shadow-md hover:border-[#FFB600] transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="mx-auto bg-[#FFB600]/10 rounded-full h-16 w-16 flex items-center justify-center">
+                        <svg class="h-8 w-8 text-[#FFB600]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </div>
+                    <h3 class="mt-6 text-xl font-semibold text-[#243746]">Discover</h3>
+                    <p class="mt-2 text-sm text-gray-600">Uncover the foundational concepts and key technologies driving the new paradigm of auditing.</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-white p-8 rounded-xl border border-gray-200 shadow-md hover:border-[#FFB600] transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="mx-auto bg-[#FFB600]/10 rounded-full h-16 w-16 flex items-center justify-center">
+                        <svg class="h-8 w-8 text-[#FFB600]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                    </div>
+                    <h3 class="mt-6 text-xl font-semibold text-[#243746]">Analyze</h3>
+                    <p class="mt-2 text-sm text-gray-600">Dive into practical applications and real-world case studies to see how AI is reshaping audit procedures.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-white p-8 rounded-xl border border-gray-200 shadow-md hover:border-[#FFB600] transition-all duration-300 transform hover:-translate-y-2">
+                     <div class="mx-auto bg-[#FFB600]/10 rounded-full h-16 w-16 flex items-center justify-center">
+                        <svg class="h-8 w-8 text-[#FFB600]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    </div>
+                    <h3 class="mt-6 text-xl font-semibold text-[#243746]">Innovate</h3>
+                    <p class="mt-2 text-sm text-gray-600">Explore future trends, tackle ethical challenges, and prepare for the next wave of innovation in the industry.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Core Concepts -->
+        <section id="concepts" class="pt-24">
+            <div class="text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-[#243746]">Core Concepts</h2>
+                <p class="mt-4 max-w-2xl mx-auto text-gray-600">Building the foundation for a data-driven audit mindset.</p>
+            </div>
+            <div class="mt-12">
+                <div id="concepts-nav" class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8">
+                    <button data-content="intro" class="concepts-btn bg-[#FFB600] text-white px-4 py-2 rounded-md text-sm font-medium shadow-sm">Introduction</button>
+                    <button data-content="lifecycle" class="concepts-btn bg-white text-gray-700 hover:bg-gray-100 px-4 py-2 rounded-md text-sm font-medium border border-gray-300">The Audit Lifecycle</button>
+                    <button data-content="pillars" class="concepts-btn bg-white text-gray-700 hover:bg-gray-100 px-4 py-2 rounded-md text-sm font-medium border border-gray-300">Key Technologies</button>
+                    <button data-content="levels" class="concepts-btn bg-white text-gray-700 hover:bg-gray-100 px-4 py-2 rounded-md text-sm font-medium border border-gray-300">Application Levels</button>
+                </div>
+                <div id="concepts-content" class="bg-white p-6 md:p-10 rounded-xl border border-gray-200 shadow-lg min-h-[400px]">
+                    <!-- Dynamic content will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Audit in Action -->
+        <section id="action" class="pt-24">
+            <div class="text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-[#243746]">Audit in Action</h2>
+                <p class="mt-4 max-w-2xl mx-auto text-gray-600">From theory to practice: real-world applications and case studies.</p>
+            </div>
+            <div class="mt-12">
+                <div id="action-nav" class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8">
+                    <button data-content="applications" class="action-btn bg-[#FFB600] text-white px-4 py-2 rounded-md text-sm font-medium shadow-sm">Core Applications</button>
+                    <button data-content="industry" class="action-btn bg-white text-gray-700 hover:bg-gray-100 px-4 py-2 rounded-md text-sm font-medium border border-gray-300">Industry Context</button>
+                    <button data-content="case-study" class="action-btn bg-white text-gray-700 hover:bg-gray-100 px-4 py-2 rounded-md text-sm font-medium border border-gray-300">Case Study</button>
+                    <button data-content="risk-simulator" class="action-btn bg-white text-gray-700 hover:bg-gray-100 px-4 py-2 rounded-md text-sm font-medium border border-gray-300">✨ AI Risk Simulator</button>
+                </div>
+                <div id="action-content" class="bg-white p-6 md:p-10 rounded-xl border border-gray-200 shadow-lg min-h-[400px]">
+                    <!-- Dynamic content will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Future Outlook -->
+        <section id="future" class="pt-24">
+            <div class="text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-[#243746]">Future Outlook</h2>
+                <p class="mt-4 max-w-2xl mx-auto text-gray-600">Preparing for tomorrow's challenges and opportunities.</p>
+            </div>
+            <div class="mt-12 grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-xl border border-gray-200 shadow-lg">
+                    <h3 class="text-2xl font-semibold text-[#243746]">Challenges & Ethics</h3>
+                    <p class="mt-4 text-gray-600">The rise of AI introduces new ethical dilemmas and challenges that the audit profession must navigate.</p>
+                    <ul class="mt-6 space-y-3 text-sm list-disc list-inside text-gray-700">
+                        <li><span class="font-semibold text-[#FFB600]">Data Privacy:</span> Ensuring the secure and ethical handling of vast amounts of sensitive data.</li>
+                        <li><span class="font-semibold text-[#FFB600]">Algorithmic Bias:</span> Mitigating biases in AI models that could lead to skewed audit results.</li>
+                        <li><span class="font-semibold text-[#FFB600]">Explainability (XAI):</span> The "black box" problem—ensuring auditors can understand and justify AI-driven conclusions.</li>
+                        <li><span class="font-semibold text-[#FFB600]">Accountability:</span> Defining responsibility when an AI-assisted audit fails to detect material misstatement.</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8 rounded-xl border border-gray-200 shadow-lg">
+                    <h3 class="text-2xl font-semibold text-[#243746]">Future Trends & Growth</h3>
+                    <p class="mt-4 text-gray-600">The role of the auditor is evolving. Staying ahead requires a commitment to continuous learning and skill development.</p>
+                     <ul class="mt-6 space-y-3 text-sm list-disc list-inside text-gray-700">
+                        <li><span class="font-semibold text-[#FFB600]">Hyperautomation:</span> Integrating AI, machine learning, and RPA to automate complex, end-to-end audit processes.</li>
+                        <li><span class="font-semibold text-[#FFB600]">Predictive Auditing:</span> Shifting from reactive to proactive risk identification using predictive analytics.</li>
+                        <li><span class="font-semibold text-[#FFB600]">The Auditor Skillset:</span> A blend of traditional audit expertise with data science, cybersecurity, and critical thinking skills will be essential.</li>
+                    </ul>
+                    <!-- Gemini Feature: Audit Program Assistant -->
+                    <div class="mt-6 pt-6 border-t border-gray-200">
+                         <h4 class="text-lg font-semibold text-[#243746]">✨ AI Audit Program Assistant</h4>
+                         <p class="text-sm text-gray-600 mt-2">Enter an audit objective below to see how Gemini can help draft initial audit steps.</p>
+                         <div class="mt-4">
+                            <input id="audit-objective-input" type="text" placeholder="e.g., Test for duplicate payments" class="w-full px-3 py-2 text-sm text-gray-700 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#FFB600]">
+                            <button id="draft-program-btn" class="mt-2 w-full bg-[#FFB600] text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-600 transition-colors">Draft Audit Program</button>
+                         </div>
+                         <div id="program-output" class="mt-4 text-sm text-gray-700 p-4 bg-gray-100 rounded-md min-h-[100px]">
+                            Your generated audit program will appear here...
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="text-center py-8 mt-16 border-t border-gray-200">
+        <p class="text-sm text-gray-500">&copy; 2025 Audit Revolution. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- GEMINI API SETUP ---
+            const API_KEY = ""; // Leave blank, will be handled by the environment
+            const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY}`;
+            
+            async function callGemini(prompt, outputElement) {
+                outputElement.innerHTML = '<div class="loader"></div>';
+                
+                const payload = {
+                    contents: [{ parts: [{ text: prompt }] }],
+                };
+
+                try {
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`API Error: ${response.statusText}`);
+                    }
+
+                    const result = await response.json();
+                    const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                    
+                    if (text) {
+                        outputElement.innerHTML = formatResponse(text);
+                    } else {
+                        throw new Error("No content received from API.");
+                    }
+
+                } catch (error) {
+                    console.error("Gemini API call failed:", error);
+                    outputElement.innerHTML = `<p class="text-red-500">Sorry, there was an error generating the content. Please try again.</p>`;
+                }
+            }
+            
+            function formatResponse(text) {
+                // More robust markdown to HTML for lists, bold text, and paragraphs
+                let html = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // Bold
+
+                const lines = html.split('\n').filter(line => line.trim() !== '');
+
+                if (lines.length === 0) return '';
+                
+                let resultHtml = '';
+                let inList = false;
+
+                lines.forEach(line => {
+                    if (/^\s*[\*\-]/.test(line)) {
+                        // It's a list item
+                        if (!inList) {
+                            resultHtml += '<ul>';
+                            inList = true;
+                        }
+                        const content = line.replace(/^\s*[\*\-]\s*/, '');
+                        resultHtml += `<li class="flex items-start mb-2"><svg class="h-4 w-4 text-[#FFB600] mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg><span>${content}</span></li>`;
+                    } else {
+                        // Not a list item
+                        if (inList) {
+                            resultHtml += '</ul>';
+                            inList = false;
+                        }
+                        resultHtml += `<p class="mb-2">${line}</p>`;
+                    }
+                });
+
+                // Close any open list at the end
+                if (inList) {
+                    resultHtml += '</ul>';
+                }
+
+                return resultHtml;
+            }
+
+            // --- DYNAMIC CONTENT DATA ---
+            const conceptsData = {
+                intro: `
+                    <div class="fade-in">
+                        <h3 class="text-2xl font-semibold text-[#243746]">The New Paradigm of Auditing</h3>
+                        <p class="mt-4 text-gray-600">Audit 2025 represents a fundamental shift from traditional, sample-based methods to a continuous, data-driven, and technology-enabled approach. The goal is no longer just to ensure compliance but to provide deep, forward-looking insights that help organizations navigate risk and drive strategic value.</p>
+                        <ul class="mt-6 space-y-2 text-gray-700">
+                            <li class="flex items-start"><svg class="h-5 w-5 text-[#FFB600] mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span><strong>From Reactive to Proactive:</strong> Using data to anticipate risks, not just detect past errors.</span></li>
+                            <li class="flex items-start"><svg class="h-5 w-5 text-[#FFB600] mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span><strong>From Sampling to Full Population:</strong> Analyzing 100% of transactions to identify anomalies and patterns missed by traditional methods.</span></li>
+                             <li class="flex items-start"><svg class="h-5 w-5 text-[#FFB600] mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span><strong>From Watchdog to Strategic Partner:</strong> Providing insights that inform business decisions and improve operational efficiency.</span></li>
+                        </ul>
+                    </div>
+                `,
+                lifecycle: `
+                    <div class="fade-in">
+                        <h3 class="text-2xl font-semibold text-[#243746]">The Tech-Infused Audit Lifecycle</h3>
+                        <p class="mt-4 text-gray-600">AI and data are embedded into every stage of the audit process, enhancing efficiency and effectiveness.</p>
+                        <div class="mt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                            <div class="process-step text-center w-full md:w-1/4">
+                                <div class="bg-[#FFB600]/10 text-[#FFB600] rounded-full h-12 w-12 flex items-center justify-center mx-auto text-lg font-bold">1</div>
+                                <h4 class="mt-3 font-semibold text-[#243746]">Planning</h4>
+                                <p class="text-xs text-gray-600 mt-1">AI analyzes historical data to identify high-risk areas and optimize audit scope.</p>
+                            </div>
+                            <div class="process-arrow hidden md:block w-1/6"></div>
+                            <div class="process-step text-center w-full md:w-1/4">
+                                <div class="bg-[#FFB600]/10 text-[#FFB600] rounded-full h-12 w-12 flex items-center justify-center mx-auto text-lg font-bold">2</div>
+                                <h4 class="mt-3 font-semibold text-[#243746]">Fieldwork</h4>
+                                <p class="text-xs text-gray-600 mt-1">Data analytics tests 100% of transactions, and RPA automates evidence gathering.</p>
+                            </div>
+                             <div class="process-arrow hidden md:block w-1/6"></div>
+                            <div class="process-step text-center w-full md:w-1/4">
+                               <div class="bg-[#FFB600]/10 text-[#FFB600] rounded-full h-12 w-12 flex items-center justify-center mx-auto text-lg font-bold">3</div>
+                               <h4 class="mt-3 font-semibold text-[#243746]">Reporting</h4>
+                               <p class="text-xs text-gray-600 mt-1">GenAI drafts initial findings and creates visualizations to communicate insights clearly.</p>
+                           </div>
+                        </div>
+                    </div>
+                `,
+                pillars: `
+                     <div class="fade-in">
+                        <h3 class="text-2xl font-semibold text-[#243746]">Key Enabling Technologies</h3>
+                        <p class="mt-4 text-gray-600">Several core technologies are the pillars of the modern audit.</p>
+                        <div class="grid md:grid-cols-2 gap-6 mt-6">
+                            <div class="p-4 bg-gray-50 rounded-lg border border-gray-200"><h4 class="font-semibold text-[#FFB600]">Generative AI (GenAI)</h4><p class="text-sm text-gray-600 mt-1">Automates content creation, from audit reports to risk assessments, and acts as an intelligent assistant.</p></div>
+                            <div class="p-4 bg-gray-50 rounded-lg border border-gray-200"><h4 class="font-semibold text-[#FFB600]">Data Analytics</h4><p class="text-sm text-gray-600 mt-1">Examines large datasets to uncover patterns, anomalies, and insights. The foundation of 100% population testing.</p></div>
+                            <div class="p-4 bg-gray-50 rounded-lg border border-gray-200"><h4 class="font-semibold text-[#FFB600]">Process Mining</h4><p class="text-sm text-gray-600 mt-1">Visualizes business processes as they actually happen, identifying control weaknesses and inefficiencies.</p></div>
+                            <div class="p-4 bg-gray-50 rounded-lg border border-gray-200"><h4 class="font-semibold text-[#FFB600]">Robotic Process Automation (RPA)</h4><p class="text-sm text-gray-600 mt-1">Automates repetitive, rules-based tasks like data extraction and reconciliation, freeing up human auditors.</p></div>
+                        </div>
+                    </div>
+                `,
+                levels: `
+                     <div class="fade-in">
+                        <h3 class="text-2xl font-semibold text-[#243746]">Levels of Application</h3>
+                        <p class="mt-4 text-gray-600">Technology can be applied at different levels of sophistication, from foundational to advanced.</p>
+                        <ul class="mt-6 space-y-4">
+                            <li><span class="font-bold text-lg text-[#FFB600]">Beginner:</span> Using tools like Excel for basic data sorting and filtering on large datasets to identify outliers.</li>
+                            <li><span class="font-bold text-lg text-[#FFB600]">Intermediate:</span> Employing specialized software like ACL or IDEA for structured data analysis and pre-built audit routines.</li>
+                            <li><span class="font-bold text-lg text-[#FFB600]">Advanced:</span> Leveraging Python, R, and process mining tools to build custom analytics, perform predictive modeling, and visualize complex processes.</li>
+                        </ul>
+                    </div>
+                `
+            };
+            
+            const actionData = {
+                applications: `
+                    <div class="fade-in">
+                        <h3 class="text-2xl font-semibold text-[#243746]">Core Audit Applications</h3>
+                        <p class="mt-4 text-gray-600">AI and data analytics are transforming key audit procedures across the board.</p>
+                        <div class="grid md:grid-cols-2 gap-6 mt-6">
+                            <div class="p-4 bg-gray-50 rounded-lg border border-gray-200"><h4 class="font-semibold text-[#FFB600]">Fraud Detection</h4><p class="text-sm text-gray-600 mt-1">AI models can identify unusual patterns, Benford's Law deviations, and suspicious transactions in real-time.</p></div>
+                            <div class="p-4 bg-gray-50 rounded-lg border border-gray-200"><h4 class="font-semibold text-[#FFB600]">Control Testing</h4><p class="text-sm text-gray-600 mt-1">Process mining tools automatically test control effectiveness by analyzing system logs and identifying deviations.</p></div>
+                            <div class="p-4 bg-gray-50 rounded-lg border border-gray-200"><h4 class="font-semibold text-[#FFB600]">Journal Entry Testing</h4><p class="text-sm text-gray-600 mt-1">Analytics can scan 100% of journal entries for red flags like weekend postings, round numbers, or unusual account combinations.</p></div>
+                            <div class="p-4 bg-gray-50 rounded-lg border border-gray-200"><h4 class="font-semibold text-[#FFB600]">Substantive Procedures</h4><p class="text-sm text-gray-600 mt-1">Automated three-way matching of invoices, purchase orders, and receiving reports across the entire population.</p></div>
+                        </div>
+                    </div>
+                `,
+                industry: `
+                     <div class="fade-in">
+                        <h3 class="text-2xl font-semibold text-[#243746]">Industry Context: Financial Services</h3>
+                        <p class="mt-4 text-gray-600">In the highly regulated financial services sector, AI-driven audits are crucial for managing risk and ensuring compliance.</p>
+                        <ul class="mt-6 space-y-3 text-gray-700">
+                             <li class="flex items-start"><svg class="h-5 w-5 text-[#FFB600] mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span><strong>Anti-Money Laundering (AML):</strong> Machine learning models analyze transaction networks to detect complex money laundering schemes that rule-based systems would miss.</span></li>
+                             <li class="flex items-start"><svg class="h-5 w-5 text-[#FFB600] mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span><strong>Credit Risk Assessment:</strong> AI assesses loan portfolios to identify emerging credit risks and validate the accuracy of provisioning models.</span></li>
+                             <li class="flex items-start"><svg class="h-5 w-5 text-[#FFB600] mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span><strong>Regulatory Reporting:</strong> RPA automates the gathering and reconciliation of data for complex regulatory reports, reducing errors and saving thousands of hours.</span></li>
+                        </ul>
+                    </div>
+                `,
+                'case-study': `
+                    <div class="fade-in">
+                        <h3 class="text-2xl font-semibold text-[#243746]">Case Study: Duplicate Payment Analysis</h3>
+                        <p class="mt-4 text-gray-600">A common but powerful data analytic test to identify potential fraud or control failures.</p>
+                        <p class="mt-2 text-sm text-gray-600"><strong>Scenario:</strong> An auditor wants to test the entire accounts payable ledger for the year to find potential duplicate payments.</p>
+                        <div class="mt-6 overflow-x-auto">
+                            <table class="w-full text-sm text-left text-gray-600">
+                                <thead class="text-xs text-gray-500 uppercase bg-gray-100">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3">Invoice #</th>
+                                        <th scope="col" class="px-6 py-3">Vendor ID</th>
+                                        <th scope="col" class="px-6 py-3">Invoice Date</th>
+                                        <th scope="col" class="px-6 py-3">Amount</th>
+                                        <th scope="col" class="px-6 py-3">Finding</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-white border-b border-gray-200">
+                                        <td class="px-6 py-4">INV-12345</td><td>V-101</td><td>2025-03-15</td><td>$5,000.00</td><td>-</td>
+                                    </tr>
+                                    <tr class="bg-[#FFB600]/20 border-b border-gray-200">
+                                        <td class="px-6 py-4 font-bold text-[#243746]">INV-12354</td><td>V-101</td><td>2025-03-16</td><td class="font-bold text-[#243746]">$5,000.00</td><td class="font-bold text-[#243746]">Potential Duplicate</td>
+                                    </tr>
+                                     <tr class="bg-white border-b border-gray-200">
+                                        <td class="px-6 py-4">INV-12346</td><td>V-102</td><td>2025-03-17</td><td>$1,250.00</td><td>-</td>
+                                    </tr>
+                                    <tr class="bg-[#FFB600]/20 border-b border-gray-200">
+                                        <td class="px-6 py-4 font-bold text-[#243746]">INV-12435</td><td>V-101</td><td>2025-03-20</td><td class="font-bold text-[#243746]">$5,000.00</td><td class="font-bold text-[#243746]">Same Vendor & Amount</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                         <p class="mt-4 text-sm text-gray-600"><strong>Analysis:</strong> The analytic script flags invoices with the same vendor and amount within a close time frame. The highlighted entries require investigation. This simple test, applied across millions of records, can uncover significant control breakdowns.</p>
+                    </div>
+                `,
+                'risk-simulator': `
+                    <div class="fade-in">
+                        <h3 class="text-2xl font-semibold text-[#243746]">✨ AI Risk Simulator</h3>
+                        <p class="mt-4 text-gray-600">Select an industry to generate potential AI- and data-related audit risks using the Gemini API.</p>
+                        <div class="mt-4 flex flex-col sm:flex-row gap-2">
+                            <select id="industry-select" class="w-full sm:w-2/3 px-3 py-2 text-sm text-gray-700 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#FFB600]">
+                                <option value="Financial Services">Financial Services</option>
+                                <option value="Healthcare">Healthcare</option>
+                                <option value="Retail">Retail & E-commerce</option>
+                                <option value="Manufacturing">Manufacturing</option>
+                            </select>
+                            <button id="generate-risks-btn" class="w-full sm:w-1/3 bg-[#FFB600] text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-600 transition-colors">Generate Risks</button>
+                        </div>
+                        <div id="risk-output" class="mt-4 text-sm text-gray-700 p-4 bg-gray-100 rounded-md min-h-[150px]">
+                           Your generated risks will appear here...
+                        </div>
+                    </div>
+                `
+            };
+
+            // --- NAVIGATION & DYNAMIC CONTENT LOGIC ---
+            const conceptsNav = document.getElementById('concepts-nav');
+            const conceptsContent = document.getElementById('concepts-content');
+            const actionNav = document.getElementById('action-nav');
+            const actionContent = document.getElementById('action-content');
+
+            function setupDynamicContent(navElement, contentElement, dataObject) {
+                navElement.addEventListener('click', (e) => {
+                    if (e.target.tagName === 'BUTTON') {
+                        const contentKey = e.target.dataset.content;
+                        
+                        navElement.querySelectorAll('button').forEach(btn => {
+                            btn.classList.remove('bg-[#FFB600]', 'text-white', 'shadow-sm');
+                            btn.classList.add('bg-white', 'text-gray-700', 'hover:bg-gray-100', 'border', 'border-gray-300');
+                        });
+                        e.target.classList.add('bg-[#FFB600]', 'text-white', 'shadow-sm');
+                        e.target.classList.remove('bg-white', 'text-gray-700', 'hover:bg-gray-100', 'border', 'border-gray-300');
+
+                        contentElement.innerHTML = dataObject[contentKey];
+                        
+                        // Re-attach event listeners for Gemini features if they are in the new content
+                        attachGeminiListeners();
+                    }
+                });
+                // Initial load
+                contentElement.innerHTML = dataObject[navElement.querySelector('button').dataset.content];
+            }
+
+            setupDynamicContent(conceptsNav, conceptsContent, conceptsData);
+            setupDynamicContent(actionNav, actionContent, actionData);
+            
+            // --- GEMINI FEATURE EVENT LISTENERS ---
+            function attachGeminiListeners() {
+                const generateRisksBtn = document.getElementById('generate-risks-btn');
+                if (generateRisksBtn) {
+                    generateRisksBtn.addEventListener('click', () => {
+                        const industry = document.getElementById('industry-select').value;
+                        const riskOutput = document.getElementById('risk-output');
+                        const prompt = `You are an expert internal audit advisor specializing in technology risk. For the "${industry}" industry, generate a list of 4 key audit risks related to the implementation and use of AI and data analytics. For each risk, provide a brief one-sentence description. Format the response as a list.`;
+                        callGemini(prompt, riskOutput);
+                    });
+                }
+                
+                const draftProgramBtn = document.getElementById('draft-program-btn');
+                if (draftProgramBtn) {
+                    draftProgramBtn.addEventListener('click', () => {
+                        const objective = document.getElementById('audit-objective-input').value;
+                        const programOutput = document.getElementById('program-output');
+                        if (!objective) {
+                            programOutput.innerHTML = `<p class="text-red-500">Please enter an audit objective.</p>`;
+                            return;
+                        }
+                        const prompt = `You are a senior internal audit manager. For the audit objective "${objective}", draft a high-level set of 4 key audit steps or procedures. Present this as a list. The steps should be concise and actionable.`;
+                        callGemini(prompt, programOutput);
+                    });
+                }
+            }
+
+            // --- SMOOTH SCROLL & ACTIVE LINK LOGIC ---
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.4 };
+
+            const sectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const targetId = entry.target.id;
+                        navLinks.forEach(link => {
+                            link.classList.remove('text-[#FFB600]', 'border-b-2', 'border-[#FFB600]', 'pb-1');
+                            link.classList.add('text-gray-600');
+                            if (link.getAttribute('href') === `#${targetId}`) {
+                                link.classList.add('text-[#FFB600]', 'border-b-2', 'border-[#FFB600]', 'pb-1');
+                                link.classList.remove('text-gray-600');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => sectionObserver.observe(section));
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            // Initial attachment of listeners
+            attachGeminiListeners();
+
+            // --- FULLSCREEN LOGIC ---
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            const enterIcon = document.getElementById('fullscreen-enter-icon');
+            const exitIcon = document.getElementById('fullscreen-exit-icon');
+            const docEl = document.documentElement;
+
+            function toggleFullScreen() {
+                if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+                    if (docEl.requestFullscreen) {
+                        docEl.requestFullscreen();
+                    } else if (docEl.webkitRequestFullscreen) { /* Safari */
+                        docEl.webkitRequestFullscreen();
+                    } else if (docEl.msRequestFullscreen) { /* IE11 */
+                        docEl.msRequestFullscreen();
+                    }
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.webkitExitFullscreen) { /* Safari */
+                        document.webkitExitFullscreen();
+                    } else if (document.msExitFullscreen) { /* IE11 */
+                        document.msExitFullscreen();
+                    }
+                }
+            }
+
+            function updateFullscreenIcon() {
+                if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+                    enterIcon.classList.remove('hidden');
+                    exitIcon.classList.add('hidden');
+                } else {
+                    enterIcon.classList.add('hidden');
+                    exitIcon.classList.remove('hidden');
+                }
+            }
+
+            fullscreenBtn.addEventListener('click', toggleFullScreen);
+
+            document.addEventListener('fullscreenchange', updateFullscreenIcon);
+            document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
+            document.addEventListener('msfullscreenchange', updateFullscreenIcon);
+
+        });
+    </script>
+</body>
+</html>
+
